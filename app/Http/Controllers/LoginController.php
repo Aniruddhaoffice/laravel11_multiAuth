@@ -12,6 +12,7 @@ class LoginController extends Controller
     public function index(){
         return view('login');
     }
+    //this methode will authenticate user
     public function authenticate(Request $request){
         $validator = Validator::make($request->all(),[
             'email'=>'required|email',
@@ -30,16 +31,18 @@ class LoginController extends Controller
     }
 
 }
-
+//this methode will show register page 
 public function register(){
  
      return view('register');
 }
-
+//this methode will register the usre 
 public function processRegister(Request $request){
     $validator = Validator::make($request->all(),[
         'email'=>'required|email|unique:users,email',
-        'password'=>'required|confirmed'
+        'password'=>'required|confirmed|min:5',
+        'name'=>'required',
+        'password_confirmation'=>'required'
         
     ]);
     if($validator->passes()){
